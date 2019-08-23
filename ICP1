@@ -9,13 +9,19 @@ Configured the shared folder of virtual machine to pull files from local machine
 hdfs dfs -put /media/sf_vm-share/shakespeare.txt /media/sf_vm-share/word_list.txt /hadoop_files
 
 
+
+
 -- Append the two files and copy into an output file
 hdfs dfs -cat /hadoop_files/shakespeare.txt /hadoop_files/word_list.txt | hdfs dfs -put - /hadoop_files/ICP1_output.txt
+
+
 
 
 -- Read the first and last 5 lines of the output file to confirm that two files got appended
 hdfs dfs -cat /hadoop_files/ICP1_output.txt | head -5
 hdfs dfs -cat /hadoop_files/ICP1_output.txt | tail -5
+
+
 
 --To create a new third data file and append all the 3 files together
 mkdir ICP1
