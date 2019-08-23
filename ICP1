@@ -1,1 +1,31 @@
+Commands used
 
+-- copy files from local host to virtual machine
+Configured the shared folder of virtual machine to pull files from local machine's file path
+
+
+
+-- Put the files onto hadoop file system from vm shared folder
+hdfs dfs -put /media/sf_vm-share/shakespeare.txt /media/sf_vm-share/word_list.txt /hadoop_files
+
+
+-- Append the two files and copy into an output file
+hdfs dfs -cat /hadoop_files/shakespeare.txt /hadoop_files/word_list.txt | hdfs dfs -put - /hadoop_files/ICP1_output.txt
+
+
+-- Read the first and last 5 lines of the output file to confirm that two files got appended
+hdfs dfs -cat /hadoop_files/ICP1_output.txt | head -5
+hdfs dfs -cat /hadoop_files/ICP1_output.txt | tail -5
+
+--To create a new third data file and append all the 3 files together
+mkdir ICP1
+touch ICP1/new_file.txt
+
+vi ICP/new_file.txt                                        -- write into the file
+hdfs dfs -put ICP1/new_file.txt /hadoop_files              -- move the file to hadoop file system
+
+hdfs dfs -cat /hadoop_files/shakespeare.txt /hadoop_files/word_list.txt /hadoop_files/new_file.txt 
+| hdfs dfs -put - /hadoop_files/ICP1_output2.txt            -- Append all the 3 files
+
+hdfs dfs -cat /hadoop_files/ICP1_output2.txt | head -5      -- Check the first 5 lines
+hdfs dfs -cat /hadoop_files/ICP1_output2.txt | tail -5      -- Check the last 5 lines
